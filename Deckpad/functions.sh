@@ -1,6 +1,6 @@
 function show_prompt {
     clear
-    prompt="Tap To Quit !"
+    prompt=$1
     if command -v figlet &> /dev/null
     then
         echo ""
@@ -19,7 +19,7 @@ function show_prompt {
         echo ""
         echo ""
         echo ""
-        figlet -c -w 180 -f big -k $prompt
+        figlet -c -w 180 -f banner -k $prompt
         echo ""
         echo ""
         echo ""
@@ -67,4 +67,8 @@ function set_brightness_to_minimum {
 function restore_brightness {
     cat ./brightness_bak > $brightness_file
     rm ./brightness_bak
+}
+
+function start_virtualhere {
+    virtualhere/vhusbdx86_64 &
 }

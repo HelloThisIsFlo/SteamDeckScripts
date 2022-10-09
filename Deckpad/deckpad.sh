@@ -16,7 +16,8 @@ function run_as_root() {
     source ./functions.sh
     set_brightness_to_minimum
     disable_sleep
-    show_prompt
+    start_virtualhere
+    show_prompt "Tap To Quit !"
     block_until_mouse_click
     reenable_sleep
     restore_brightness
