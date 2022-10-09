@@ -12,6 +12,20 @@ set -eo pipefail
 # sudo ~/.virtualhere/vhusbdx86_64
 
 
+
+# Experiment
+# source ./functions.sh
+# battery=$(cat /sys/class/power_supply/BAT1/capacity)
+# show_prompt "Tap To Quit!"
+# show_prompt "$battery %"
+# show_prompt $(date +'%s')
+# run_prompt_start
+# block_until_mouse_click
+# run_prompt_stop
+
+# exit
+
+
 function run_as_root() {
     source ./functions.sh
 
@@ -22,14 +36,16 @@ function run_as_root() {
     start_virtualhere
 
     # Run - Block until Tap on screen
-    show_prompt "Tap To Quit !"
+    run_prompt_start
     block_until_mouse_click
 
     # Quit
+    run_prompt_stop
     quit_prompt &
     restore_brightness
     reenable_sleep
     stop_virtualhere
+    wait
 }
 
 FUNC=$(declare -f run_as_root)
