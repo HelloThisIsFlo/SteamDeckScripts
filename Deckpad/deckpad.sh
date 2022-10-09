@@ -14,13 +14,22 @@ set -eo pipefail
 
 function run_as_root() {
     source ./functions.sh
+
+    # Start
+    start_prompt
     set_brightness_to_minimum
     disable_sleep
     start_virtualhere
+
+    # Run - Block until Tap on screen
     show_prompt "Tap To Quit !"
     block_until_mouse_click
-    reenable_sleep
+
+    # Quit
+    quit_prompt &
     restore_brightness
+    reenable_sleep
+    stop_virtualhere
 }
 
 FUNC=$(declare -f run_as_root)
