@@ -1,2 +1,2 @@
 # Deckpad
-See [Deckpad](/tree/main/Deckpad)
+See [Deckpad](/Deckpad)
