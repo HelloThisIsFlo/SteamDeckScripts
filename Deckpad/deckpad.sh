@@ -45,6 +45,7 @@ prepare_fullscreen
 show_prompt "Enter sudo password" 'big'
 show_prompt "(screen will dim)" 'big'
 
+xhost local:root >/dev/null
 FUNC=$(declare -f run_as_root)
 sudo bash -c "$FUNC; run_as_root"
 

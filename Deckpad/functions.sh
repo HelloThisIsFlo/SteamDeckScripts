@@ -33,7 +33,6 @@ function show_prompt {
 }
 
 function block_until_press_on_target {
-    xhost local:root
     export DISPLAY=:1
 
     TARGET_X_MIN=30500
