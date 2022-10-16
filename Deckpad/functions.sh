@@ -9,10 +9,6 @@ function prepare_fullscreen {
     echo ""
     echo ""
     echo ""
-    echo ""
-    echo ""
-    echo ""
-    echo ""
 }
 
 function show_prompt {
@@ -23,7 +19,7 @@ function show_prompt {
         style=$2
     fi
     if command -v figlet &>/dev/null; then
-        figlet -c -w 180 -f $style -k "$prompt"
+        figlet -c -w 180 -f $style -k -- "$prompt"
         echo ""
         echo ""
         echo ""
@@ -34,6 +30,32 @@ function show_prompt {
         echo ""
         echo "-----------------------------------"
     fi
+}
+
+function block_until_press_on_target {
+    xhost local:root
+    export DISPLAY=:1
+
+    TARGET_X_MIN=30500
+    TARGET_Y_MIN=29000
+    TARGET_X_MAX=33000
+    TARGET_Y_MAX=38000
+
+    TOUCHSCREEN_ID=$(xinput --list 2>/dev/null | grep -i -m 1 'touch' | grep -o 'id=[0-9]\+' | grep -o '[0-9]\+')
+    touch_x=0
+    touch_y=0
+    while [[ $touch_x < $TARGET_X_MIN ]] || [[ $touch_x > $TARGET_X_MAX ]] || [[ $touch_y < $TARGET_Y_MIN ]] || [[ $touch_y > $TARGET_Y_MAX ]]; do
+        _show_run_prompt
+        block_until_mouse_click
+        touch_state=$(xinput --query-state $TOUCHSCREEN_ID 2>/dev/null)
+        if [[ $touch_state =~ valuator\[0]=([0-9]*) ]]; then
+            touch_x=${BASH_REMATCH[1]}
+        fi
+        if [[ $touch_state =~ valuator\[1]=([0-9]*) ]]; then
+            touch_y=${BASH_REMATCH[1]}
+        fi
+    done
+    # sleep 3
 }
 
 function block_until_mouse_click {
@@ -109,17 +131,18 @@ function quit_prompt {
     show_prompt "Quitting . . ."
 }
 
+function _show_run_prompt {
+    battery=$(cat /sys/class/power_supply/BAT1/capacity)
 
+    prepare_fullscreen
+    show_prompt "Press to Quit"
+    show_prompt "-> O <-"
+    show_prompt "$battery %"
+}
 function _do_run_prompt {
-    while true;
-    do
-        battery=$(cat /sys/class/power_supply/BAT1/capacity)
-        # battery=$(date +'%s') # Used to debug
-
-        prepare_fullscreen
-        show_prompt "Tap To Quit!"
-        show_prompt "$battery %"
-        sleep 0.5
+    while true; do
+        _show_run_prompt
+        sleep 10
     done
 }
 function run_prompt_start {

@@ -1,17 +1,14 @@
 #!/bin/bash
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 cd "$DIR"
-set -eo pipefail
+set -o pipefail
 
 # add_pipenv_to_path
 # PATH=$PATH:$HOME/.local/bin
 
-
 # echo 'Starting Virtual Here ...'
 # sleep 1
 # sudo ~/.virtualhere/vhusbdx86_64
-
-
 
 # Experiment
 # source ./functions.sh
@@ -23,9 +20,6 @@ set -eo pipefail
 # block_until_mouse_click
 # run_prompt_stop
 
-# exit
-
-
 function run_as_root() {
     source ./functions.sh
 
@@ -35,8 +29,7 @@ function run_as_root() {
     start_virtualhere
 
     # Run - Block until Tap on screen
-    run_prompt_start
-    block_until_mouse_click
+    block_until_press_on_target
 
     # Quit
     run_prompt_stop
