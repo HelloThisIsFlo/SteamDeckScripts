@@ -30,7 +30,6 @@ function run_as_root() {
     source ./functions.sh
 
     # Start
-    start_prompt
     set_brightness_to_minimum
     disable_sleep
     start_virtualhere
@@ -47,6 +46,11 @@ function run_as_root() {
     stop_virtualhere
     wait
 }
+
+source ./functions.sh
+prepare_fullscreen
+show_prompt "Enter sudo password" 'big'
+show_prompt "(screen will dim)" 'big'
 
 FUNC=$(declare -f run_as_root)
 sudo bash -c "$FUNC; run_as_root"

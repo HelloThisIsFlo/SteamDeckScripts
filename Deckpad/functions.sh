@@ -17,8 +17,13 @@ function prepare_fullscreen {
 
 function show_prompt {
     prompt=$1
+    if [[ -z ${2+x} ]]; then
+        style='banner'
+    else
+        style=$2
+    fi
     if command -v figlet &>/dev/null; then
-        figlet -c -w 180 -f banner -k "$prompt"
+        figlet -c -w 180 -f $style -k "$prompt"
         echo ""
         echo ""
         echo ""
@@ -77,6 +82,7 @@ function stop_virtualhere {
 }
 
 function start_prompt {
+    # Deprecated
     prepare_fullscreen
     show_prompt "Starting in . . . 3"
     sleep 1
@@ -89,7 +95,7 @@ function start_prompt {
 }
 
 function quit_prompt {
-    sleep_time=1.5
+    sleep_time=0.6
     prepare_fullscreen
     show_prompt "Quitting"
     sleep $sleep_time
