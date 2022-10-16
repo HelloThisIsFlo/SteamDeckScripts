@@ -3,23 +3,6 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 cd "$DIR"
 set -o pipefail
 
-# add_pipenv_to_path
-# PATH=$PATH:$HOME/.local/bin
-
-# echo 'Starting Virtual Here ...'
-# sleep 1
-# sudo ~/.virtualhere/vhusbdx86_64
-
-# Experiment
-# source ./functions.sh
-# battery=$(cat /sys/class/power_supply/BAT1/capacity)
-# show_prompt "Tap To Quit!"
-# show_prompt "$battery %"
-# show_prompt $(date +'%s')
-# run_prompt_start
-# block_until_mouse_click
-# run_prompt_stop
-
 function run_as_root() {
     source ./functions.sh
 

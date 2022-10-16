@@ -54,7 +54,6 @@ function block_until_press_on_target {
             touch_y=${BASH_REMATCH[1]}
         fi
     done
-    # sleep 3
 }
 
 function block_until_mouse_click {
