@@ -139,8 +139,8 @@ function _show_run_prompt {
 }
 function _do_run_prompt {
     while true; do
-        _show_run_prompt
         sleep 10
+        _show_run_prompt
     done
 }
 function run_prompt_start {

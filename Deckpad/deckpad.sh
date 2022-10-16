@@ -12,6 +12,7 @@ function run_as_root() {
     start_virtualhere
 
     # Run - Block until Tap on screen
+    run_prompt_start
     block_until_press_on_target
 
     # Quit
