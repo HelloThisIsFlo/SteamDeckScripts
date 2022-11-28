@@ -1,0 +1,13 @@
+[Unit]
+Description=EasyEffects - EQ and other effects
+StartLimitIntervalSec=500
+StartLimitBurst=5
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/flatpak run com.github.wwmm.easyeffects --gapplication-service
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
