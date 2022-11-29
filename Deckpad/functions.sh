@@ -43,7 +43,7 @@ function block_until_press_on_target {
     TOUCHSCREEN_ID=$(xinput --list 2>/dev/null | grep -i -m 1 'touch' | grep -o 'id=[0-9]\+' | grep -o '[0-9]\+')
     touch_x=0
     touch_y=0
-    while [[ $touch_x < $TARGET_X_MIN ]] || [[ $touch_x > $TARGET_X_MAX ]] || [[ $touch_y < $TARGET_Y_MIN ]] || [[ $touch_y > $TARGET_Y_MAX ]]; do
+    while (( $touch_x < $TARGET_X_MIN )) || (( $touch_x > $TARGET_X_MAX )) || (( $touch_y < $TARGET_Y_MIN )) || (( $touch_y > $TARGET_Y_MAX )); do
         _show_run_prompt
         block_until_mouse_click
         touch_state=$(xinput --query-state $TOUCHSCREEN_ID 2>/dev/null)
