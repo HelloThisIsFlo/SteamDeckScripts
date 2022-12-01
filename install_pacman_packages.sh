@@ -8,3 +8,5 @@ sudo pacman -S --noconfirm xorg-xinput
 sudo pacman -S --noconfirm figlet
 sudo pacman -S --noconfirm xorg-xinput
 sudo pacman -S --noconfirm git-delta
+
+cd - >/dev/null
