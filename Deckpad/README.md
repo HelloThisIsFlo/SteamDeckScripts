@@ -3,25 +3,26 @@
 ## Setup Instructions
 ### On Steam Deck
 
-1. Clone repo
+1. Set a `sudo` password: [SteamDeckTips Tutorial](https://steamdecktips.com/blog/how-to-set-a-password-for-your-steam-deck-user-in-desktop-mode)
+2. Clone repo
     
     ```bash
     cd ~ && git clone git@github.com:FlorianKempenich/SteamDeckScripts.git
     ```
     
-2. Run `./initialize_after_os_update.sh`
+3. Run `./initialize_after_os_update.sh`
     
     This will:
     
     - Disable `readonly` mode on SteamOS
     - Initialize `pacman`
     - Install `xorg-xinput` and `figlet`
-3. Download: [VirtualHere USB Server for Linux (x86_64)](https://www.virtualhere.com/sites/default/files/usbserver/vhusbdx86_64)      
-4. Put in `~/SteamDeckScripts/Deckpad/virtualhere/`
-5. Make executable: `chmod +x vhusbdx86_64`
-6. Add a “fake” game to the steam library *(shortcut will be updated, so the app doesn’t matter)*
-7. Select “fake” game and click `Properties`
-8. Replace with these values
+4. Download: [VirtualHere USB Server for Linux (x86_64)](https://www.virtualhere.com/sites/default/files/usbserver/vhusbdx86_64)      
+5. Put in `~/SteamDeckScripts/Deckpad/virtualhere/`
+6. Make executable: `chmod +x vhusbdx86_64`
+7. Add a “fake” game to the steam library *(shortcut will be updated, so the app doesn’t matter)*
+8. Select “fake” game and click `Properties`
+9. Replace with these values
     
     
     | Title | Deckpad |
@@ -34,7 +35,7 @@
         ![controller_wireless_icon.png](https://github.com/FlorianKempenich/SteamDeckScripts/blob/main/Deckpad/icon.png)
         
     
-9. Launch it once
+10. Launch it once
 
 
 ### On Windows Gaming PC
