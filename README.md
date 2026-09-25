@@ -88,7 +88,8 @@ Assumes an SSH host named `steamdeck`.
 - [ ] **Defring toggle** in the Surround plugin (replaces Reshadeck, whose UI crashes on current Steam)
   - Reshadeck was just a wrapper around one command: `DISPLAY=:0 xprop -root -f GAMESCOPE_RESHADE_EFFECT 8u -set GAMESCOPE_RESHADE_EFFECT DefringSamsungOLEDeck.fx` (off: set it to `""`)
   - Shader already in `~/.local/share/gamescope/reshade/Shaders/`; copy it into SteamDeck-Pipewire so it's versioned
-  - Test first: probably applies to games only (not the Steam UI), probably resets on reboot → re-apply on plugin load
+  - ✅ Works on the Steam UI too. Blind test (2026-09-25, 5 random rounds): 4/5 right, every confident call right; the only miss was an "unsure"
+  - Probably resets on reboot → re-apply on plugin load
 - [ ] Clean up LetMeReShade leftovers: `~/.local/share/reshade/` (shader packs it downloaded)
 - [ ] Frame generation, another day
   - **Decky Framegen** (OptiScaler, FSR3 FG): only for single-player DX12 games with DLSS/FSR already at 40+ fps; patches DLLs per game; ⚠️ anti-cheat bans in online games
