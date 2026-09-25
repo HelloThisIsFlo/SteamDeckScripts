@@ -38,12 +38,14 @@ Assumes an SSH host named `steamdeck`.
   - Superseded by [SteamDeck-Pipewire](https://github.com/HelloThisIsFlo/SteamDeck-Pipewire)
 
 ## 🔊 Audio, in one glance
-- **SteamDeck-Pipewire** defines a filter-chain sink `Virtual Surround (A)`
+- **SteamDeck-Pipewire** defines a filter-chain sink `Virtual Surround (C)`
   - 7.1 → binaural via HRIR convolvers (`active_hrir.wav`)
   - Headphone correction via AutoEQ convolver (`active_eq.wav`)
-- Preset scripts `{game,movie,music}_<headphone>.sh` swap both symlinks and restart PipeWire
-  - Game = `gsx+`, Movie = `dh++`, Music = `ooyh0` (`music_alt` = `ooyh1`)
-- Presets are launched from Gaming Mode via the Decky **Bash Shortcuts** plugin
+- One script: `~/.config/pipewire/scripts/surround.sh <mode> <headphones>`, then **Restart Steam**
+  - From Gaming Mode: Quick Access Menu → 🎧 **Surround** (our own Decky plugin, source in `SteamDeck-Pipewire/decky-plugin/`)
+  - Modes: `game`, `movie`, `music`, `music_alt`; `off` = plain stereo on the speaker
+  - Full details in the [SteamDeck-Pipewire README](https://github.com/HelloThisIsFlo/SteamDeck-Pipewire)
+- 🍎 AirPods keep jumping to the iPhone? iPhone → Bluetooth → AirPods → Connect to This iPhone → *When Last Connected*
 
 ## 📚 Notes elsewhere
 - **Notion**
@@ -51,4 +53,28 @@ Assumes an SSH host named `steamdeck`.
   - Virtualization Steam Deck Experiment: original 2022 PipeWire HeSuVi experiment
   - HeSuVi (Windows): best HRIR/EQ/bass-boost settings per use case
 - **LogSeq** (The Graph)
-  - `Steam Deck` page: install steps, Bash Shortcuts config, pavucontrol tweaks
+  - `Steam Deck` page: install steps, pavucontrol tweaks, Bash Shortcuts config (outdated)
+
+## 🔌 Decky Loader
+- **Boot loop fixed (2026-09-25)**: Steam restarted 3-4× at boot because old plugins crashed `steamwebhelper`
+  - Fix: moved all 26 old plugins to `~/homebrew/plugins.old` (still there as a fallback), reinstalled only what's needed
+- Installed now: `decky-autoflatpaks`, `decky-brightness-bar` (store), `decky-surround` (ours, from ZIP)
+- Plugin config lives in `~/homebrew/settings/<plugin>/` (+ `~/homebrew/themes/`, `~/.config/moondeck/`); caches in `~/homebrew/data/`
+  - Survives Decky's `uninstall.sh` and moving `plugins/` aside
+  - Backup: `~/Backups/SteamDeck/decky-config-2026-09-25.tgz` on the Mac. Restore: `ssh steamdeck 'tar xzf - -C ~' < <tgz>`
+- Non-store plugins: Decky ⚙️ → Developer → **Install Plugin from ZIP File** (developer mode is on)
+- 🪦 **Bash Shortcuts** is gone: abandoned (last build = unmerged PR [SDH-Stewardship#1](https://github.com/SDH-Stewardship/bash-shortcuts/pull/1)) and its backend crashes on current Decky (`OPENSSL_3.3.0 not found`). Replaced by the Surround plugin
+
+## 📝 TODO
+- [ ] Onboard **chezmoi** on the Deck (same dotfiles repo as the Mac)
+  - Binary in `~/.local/bin`; scope per machine with `.chezmoiignore` + `{{ if eq .chezmoi.os "linux" }}`
+  - Needs GitHub access on the Deck (read-only deploy key or fine-grained token)
+  - Manage Decky configs: plugin-written files (`~/homebrew/settings/`, `~/homebrew/themes/`, `~/.config/moondeck/`) as restore-only (`create_`, check how `re-add` behaves)
+  - Skip caches (`~/homebrew/data/`) and `~/.config/pipewire` (own repo)
+  - Until then: manual tarball in `~/Backups/SteamDeck/` on the Mac (first one: 2026-09-25, before the Decky fix)
+- [ ] Install **lazygit** on the Deck, in `~` so it survives SteamOS updates (`/usr` is read-only and wiped)
+  - Preferred: install mise in `~/.local/bin`, then `mise use -g lazygit` (same tool as on the Mac)
+  - Check that `~/.local/bin` is in `PATH` (it isn't for non-interactive `ssh steamdeck '…'`)
+- [ ] Go through the old Decky plugins in `~/homebrew/plugins.old`: reinstall the useful ones from the store, then delete the folder
+- [ ] Update notes that still describe Bash Shortcuts: LogSeq `Steam Deck` page, Notion *Steam Deck Setup Notes* (also lists a wrong config path)
+- [ ] Maybe: a generic Bash Shortcuts replacement for the Decky store
