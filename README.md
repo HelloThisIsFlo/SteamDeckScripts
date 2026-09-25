@@ -55,10 +55,19 @@ Assumes an SSH host named `steamdeck`.
 - **LogSeq** (The Graph)
   - `Steam Deck` page: install steps, pavucontrol tweaks, Bash Shortcuts config (outdated)
 
+## 🖥️ Hardware
+- **Steam Deck OLED** (`Galileo`), **Samsung (SDC)** panel: EDID `VLV 0x3003`, matched by gamescope's `valve.steamdeck.oled.lua`
+  - Some SDC panels show colour fringing on text: the reason for the `DefringSamsungOLEDeck.fx` shader (see TODO)
+
 ## 🔌 Decky Loader
 - **Boot loop fixed (2026-09-25)**: Steam restarted 3-4× at boot because old plugins crashed `steamwebhelper`
   - Fix: moved all 26 old plugins to `~/homebrew/plugins.old` (still there as a fallback), reinstalled only what's needed
-- Installed now: `decky-autoflatpaks`, `decky-brightness-bar` (store), `decky-surround` (ours, from ZIP)
+- Installed now (2026-09-25, 23 plugins, clean boot):
+  - 🎧 Audio: `decky-surround` (ours, from ZIP), MagicPods, Volume Mixer, volume-boost, MusicControl
+  - 🎮 Games: ProtonDB Badges, HLTB, SteamGridDB, Wine Cellar, game-settings, Pause Games, Quick Launch, SuggestMe, ControllerTools
+  - 📡 Streaming: MoonDeck, Sunshine (its `Error:` lines at boot are encoder probing: harmless)
+  - 🧰 Misc: CSS Loader (themes kept), Web Browser, MagicBlack, Notebook, Brightness Bar, AutoFlatpaks, speed-test
+- Skipped on purpose: MangoPeel (broken UI, prime boot-loop suspect), Reshadeck (UI crashes), LetMeReShade (per-game ReShade, not a screen fix), Bluetooth (SteamOS reconnects itself), Cloud Save (never configured), Battery Tracker, ScreenshotUploader, Discord Status; Bookmarks / Network Info are gone from the store
 - Plugin config lives in `~/homebrew/settings/<plugin>/` (+ `~/homebrew/themes/`, `~/.config/moondeck/`); caches in `~/homebrew/data/`
   - Survives Decky's `uninstall.sh` and moving `plugins/` aside
   - Backup: `~/Backups/SteamDeck/decky-config-2026-09-25.tgz` on the Mac. Restore: `ssh steamdeck 'tar xzf - -C ~' < <tgz>`
@@ -75,6 +84,15 @@ Assumes an SSH host named `steamdeck`.
 - [ ] Install **lazygit** on the Deck, in `~` so it survives SteamOS updates (`/usr` is read-only and wiped)
   - Preferred: install mise in `~/.local/bin`, then `mise use -g lazygit` (same tool as on the Mac)
   - Check that `~/.local/bin` is in `PATH` (it isn't for non-interactive `ssh steamdeck '…'`)
-- [ ] Go through the old Decky plugins in `~/homebrew/plugins.old`: reinstall the useful ones from the store, then delete the folder
+- [ ] Delete `~/homebrew/plugins.old` once the new plugin set has proven itself (plugins reviewed and reinstalled on 2026-09-25)
+- [ ] **Defring toggle** in the Surround plugin (replaces Reshadeck, whose UI crashes on current Steam)
+  - Reshadeck was just a wrapper around one command: `DISPLAY=:0 xprop -root -f GAMESCOPE_RESHADE_EFFECT 8u -set GAMESCOPE_RESHADE_EFFECT DefringSamsungOLEDeck.fx` (off: set it to `""`)
+  - Shader already in `~/.local/share/gamescope/reshade/Shaders/`; copy it into SteamDeck-Pipewire so it's versioned
+  - Test first: probably applies to games only (not the Steam UI), probably resets on reboot → re-apply on plugin load
+- [ ] Clean up LetMeReShade leftovers: `~/.local/share/reshade/` (shader packs it downloaded)
+- [ ] Frame generation, another day
+  - **Decky Framegen** (OptiScaler, FSR3 FG): only for single-player DX12 games with DLSS/FSR already at 40+ fps; patches DLLs per game; ⚠️ anti-cheat bans in online games
+  - **Decky LSFG-VK** (Lossless Scaling): needs the paid Steam app; global Vulkan layer; v0.14 (2026-09) breaks HDR and non-Steam games → wait
+- [ ] If audio routing acts weird after a `surround.sh` switch: disable **MagicPods** and **volume-boost** first (both touch audio)
 - [ ] Update notes that still describe Bash Shortcuts: LogSeq `Steam Deck` page, Notion *Steam Deck Setup Notes* (also lists a wrong config path)
 - [ ] Maybe: a generic Bash Shortcuts replacement for the Decky store
