@@ -3,3 +3,6 @@ brightness_bak
 virtualhere_pid
 run_prompt_pid
 Screenshots
+
+# Local-only notes: IPs, network names, raw test logs
+local/
