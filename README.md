@@ -45,6 +45,8 @@ Assumes an SSH host named `steamdeck`.
   - From Gaming Mode: Quick Access Menu → 🎧 **Surround** (our own Decky plugin, source in `SteamDeck-Pipewire/decky-plugin/`)
   - Modes: `game`, `movie`, `music`, `music_alt`; `off` = plain stereo on the speaker
   - Full details in the [SteamDeck-Pipewire README](https://github.com/HelloThisIsFlo/SteamDeck-Pipewire)
+- 🍎 **Mac equivalent: [Airwave](https://github.com/sallliisa/Airwave)**, with the same HeSuVi HRIRs + AutoEQ, on the headphone jack only (Arya Organic, `ooyh0`)
+  - Setup and rebuild steps live in the chezmoi repo (Brewfile + README manual step)
 - 🍎 AirPods keep jumping to the iPhone? iPhone → Bluetooth → AirPods → Connect to This iPhone → *When Last Connected*
 
 ## 📚 Notes elsewhere
